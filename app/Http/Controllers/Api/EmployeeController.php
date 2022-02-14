@@ -5,10 +5,22 @@ namespace App\Http\Controllers\Api;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EmployeeRequest;
 
 class EmployeeController extends Controller
 {
-    public function store(Request $request)
+    public function index()
+    {
+        $employees = Employee::all();
+        
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully fetch employee index',
+            'data' => $employees,
+        ]);
+    }
+
+    public function store(EmployeeRequest $request)
     {
         $employee = Employee::create([
             'first_name' => $request->first_name,
