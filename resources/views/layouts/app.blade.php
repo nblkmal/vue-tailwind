@@ -34,7 +34,8 @@
                         <router-link to="/about">About</router-link>
                     </li>
                     <li class="cursor-pointer ">
-                        <a href="/employees-index">Employee</a>
+                        <router-link to="/employees-index">Employee</router-link>
+                        {{-- <a href="/employees-index">Employee</a> --}}
                     </li>
 
                     @guest
