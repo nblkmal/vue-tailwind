@@ -7,7 +7,7 @@ import EmployeesEdit from './components/employees/Edit';
 
 export default {
     mode: 'history',
-    linkActiveClass: 'font-semibold text-white bg-cyan-600 py-2 px-4 rounded-md',
+    linkActiveClass: 'font-semibold rounded-md',
     routes: [
         {
             path: '*',
