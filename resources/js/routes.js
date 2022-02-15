@@ -22,15 +22,18 @@ export default {
             component: About
         },
         {
+            name: 'EmployeeIndex',
             path: '/employees-index',
             component: EmployeesIndex
         },
         {
+            name: 'EmployeeCreate',
             path: '/employees-create',
             component: EmployeesCreate
         },
         {
-            path: '/employees-edit',
+            name: 'EmployeeEdit',
+            path: '/employees-edit/:id',
             component: EmployeesEdit
         },
     ]
