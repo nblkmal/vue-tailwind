@@ -21,4 +21,9 @@ class Employee extends Model
         'birthdate',
         'date_hired',
     ];
+
+    public function getFirstNameAttribute()
+    {
+        return ucfirst($this->attributes['first_name']);
+    }
 }
