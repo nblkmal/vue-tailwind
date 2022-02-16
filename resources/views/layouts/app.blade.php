@@ -44,8 +44,9 @@
                             <ul class="py-1" aria-labelledby="dropdownSmallButton">
                                 <li>
                                     <router-link :to="{ name: 'EmployeeIndex'}" class="text-sm px-3">Index</router-link>
-                                    {{-- <button to="/about" class="text-xs px-3">Index</button> --}}
-                                    {{-- <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a> --}}
+                                </li>
+                                <li>
+                                    <router-link :to="{ name: 'EmployeeCreate'}" class="text-sm px-3">Create</router-link>
                                 </li>
                             </ul>
                         </div>
