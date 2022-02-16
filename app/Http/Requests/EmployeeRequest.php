@@ -27,6 +27,7 @@ class EmployeeRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'address' => 'required',
+            'country_id' => 'required',
         ];
     }
 }
