@@ -24,6 +24,9 @@
                                     <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
                                         Address
                                     </th>
+                                    <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
+                                        Country
+                                    </th>
                                     <th scope="col" class="relative py-3 px-6">
                                         <span class="sr-only">Edit</span>
                                     </th>
@@ -43,6 +46,9 @@
                                     </td>
                                     <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         {{ employee.address }}
+                                    </td>
+                                    <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        {{ employee.country.name }}
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                         <router-link :to="{
