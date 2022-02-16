@@ -26,4 +26,9 @@ class Employee extends Model
     {
         return ucfirst($this->attributes['first_name']);
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
 }
