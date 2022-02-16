@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\EmployeeController;
 
 /*
@@ -21,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/employee/index', [EmployeeController::class, 'index']);
 Route::post('/employee/store', [EmployeeController::class, 'store']);
+Route::post('/employee/edit/{employee}', [EmployeeController::class, 'edit']);
+Route::get('/employee/show/{employee}', [EmployeeController::class, 'show']);
+
+Route::get('/countries/index', [CountryController::class, 'index']);
