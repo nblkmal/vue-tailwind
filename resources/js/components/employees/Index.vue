@@ -48,7 +48,9 @@
                                         {{ employee.address }}
                                     </td>
                                     <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        {{ employee.country.name }}
+                                        <div v-if="employee.country">
+                                            {{ employee.country.name }}
+                                        </div>
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                         <router-link :to="{
