@@ -57,8 +57,8 @@ export default {
                 last_name: '',
                 address: '',
                 country_id: '',
-                city_id: '',
                 state_id: '',
+                city_id: '',
             }
         };
     },
@@ -73,6 +73,7 @@ export default {
                 'last_name': this.form.last_name,
                 'address': this.form.address,
                 'country_id': this.form.country_id,
+                'state_id': this.form.state_id,
                 'city_id': this.form.city_id,
             }).then(res => {
                 this.$router.push({name: 'EmployeeIndex'});
