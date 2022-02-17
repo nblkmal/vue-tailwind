@@ -11,7 +11,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::with('country')->get();
+        $employees = Employee::with('country', 'state', 'city')->get();
         
         return response()->json([
             'status' => true,
@@ -27,6 +27,8 @@ class EmployeeController extends Controller
             'last_name' => $request->last_name,
             'address' => $request->address,
             'country_id' => $request->country_id,
+            'state_id' => $request->state_id,
+            'city_id' => $request->city_id,
         ]);
 
         return response()->json([
