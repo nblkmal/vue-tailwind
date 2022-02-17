@@ -27,6 +27,12 @@
                                     <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
                                         Country
                                     </th>
+                                    <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
+                                        State
+                                    </th>
+                                    <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
+                                        City
+                                    </th>
                                     <th scope="col" class="relative py-3 px-6">
                                         <span class="sr-only">Edit</span>
                                     </th>
@@ -52,6 +58,16 @@
                                             {{ employee.country.name }}
                                         </div>
                                     </td>
+                                    <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        <div v-if="employee.state">
+                                            {{ employee.state.name }}
+                                        </div>
+                                    </td>
+                                    <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        <div v-if="employee.city">
+                                            {{ employee.city.name }}
+                                        </div>
+                                    </td>
                                     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                         <router-link :to="{
                                             name: 'EmployeeEdit',
@@ -59,6 +75,7 @@
                                             }" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             Edit
                                         </router-link>
+                                        
                                     </td>
                                 </tr>
                                 
@@ -87,7 +104,7 @@ export default {
             axios.get("/api/employee/index")
             .then(res => {
                 this.employees = res.data.data;
-                console.log(res);
+                console.log(res.data.data[0]);
             })
             .catch(error => {
                 console.log(error);
