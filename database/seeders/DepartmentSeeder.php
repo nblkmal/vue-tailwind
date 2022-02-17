@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CountrySeeder extends Seeder
+class DepartmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,21 +14,22 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries')->insert([
+        DB::table('departments')->insert([
             [
                 'id' => 1,
-                'country_code' => 'MYS',
-                'name' => 'Malaysia'
+                'name' => 'Sfera'
             ],
             [
                 'id' => 2,
-                'country_code' => 'IND',
-                'name' => 'Indonesia'
+                'name' => 'Atmosphere'
             ],
             [
                 'id' => 3,
-                'country_code' => 'SGP',
-                'name' => 'Singapore'
+                'name' => '3 Element'
+            ],
+            [
+                'id' => 4,
+                'name' => 'IOI'
             ],
         ]);
     }
