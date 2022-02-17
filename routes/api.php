@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +29,6 @@ Route::post('/employee/edit/{employee}', [EmployeeController::class, 'edit']);
 Route::get('/employee/show/{employee}', [EmployeeController::class, 'show']);
 
 Route::get('/countries/index', [CountryController::class, 'index']);
+Route::get('/states/index/{country}', [StateController::class, 'index']);
+Route::get('/cities/index/{state}', [CityController::class, 'index']);
+Route::get('/departments/index', [DepartmentController::class, 'index']);
