@@ -25,6 +25,7 @@ class EmployeeController extends Controller
         $employee = Employee::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'date_hired' => $request->date_hired,
             'address' => $request->address,
             'country_id' => $request->country_id,
             'state_id' => $request->state_id,
@@ -38,12 +39,16 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function edit(EmployeeRequest $request, Employee $employee)
+    public function update(EmployeeRequest $request, Employee $employee)
     {
         $employee->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'date_hired' => $request->date_hired,
             'address' => $request->address,
+            'country_id' => $request->country_id,
+            'state_id' => $request->state_id,
+            'city_id' => $request->city_id,
         ]);
 
         return response()->json([
@@ -58,7 +63,18 @@ class EmployeeController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Successfully fetch data employee '.$employee->first_name,
-            'data' => $employee,
+            'data' => $employee->with('country')->first(),
+        ]);
+    }
+
+    public function delete(Employee $employee)
+    {
+        $employee->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully delete data employee ',
+            // 'data' => $employee,
         ]);
     }
 }
