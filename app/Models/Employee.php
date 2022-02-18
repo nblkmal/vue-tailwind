@@ -13,6 +13,11 @@ class Employee extends Model
 {
     use HasFactory;
 
+    protected $appends = [
+        'full_name',
+        'full_address'
+    ];
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -29,6 +34,16 @@ class Employee extends Model
     public function getFirstNameAttribute()
     {
         return ucfirst($this->attributes['first_name']);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->attributes['first_name'])." ".ucfirst($this->attributes['last_name']);
+    }
+
+    public function getFullAddressAttribute()
+    {
+        return ucfirst($this->attributes['address']).", ".$this->city->name.", ".$this->state->name;
     }
 
     public function department()
