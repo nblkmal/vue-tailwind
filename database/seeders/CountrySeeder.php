@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class CountrySeeder extends Seeder
 {
@@ -14,22 +15,22 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries')->insert([
-            [
-                'id' => 1,
-                'country_code' => 'MYS',
-                'name' => 'Malaysia'
-            ],
-            [
-                'id' => 2,
-                'country_code' => 'IND',
-                'name' => 'Indonesia'
-            ],
-            [
-                'id' => 3,
-                'country_code' => 'SGP',
-                'name' => 'Singapore'
-            ],
-        ]);
+        $data = Http::get('https://flagcdn.com/en/codes.json')->json();
+        $countries = [];
+
+        $index = 1;
+        foreach($data as $key => $name)
+        {
+            $item = [
+                'id' => $index,
+                'country_code' => $key,
+                'name' => $name,
+            ];
+
+            array_push($countries, $item);
+            $index++;
+        }
+
+        DB::table('countries')->insert($countries);
     }
 }
