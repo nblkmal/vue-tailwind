@@ -15,6 +15,10 @@
                 <input v-model="form.address" type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Small Heath, Birmingham" required>
             </div>
             <div class="mb-6">
+                <label for="dateHired" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date Hired</label>
+                <input v-model="form.date_hired" id="dateHired" datepicker datepicker-buttons datepicker-format="Y-m-d" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+            </div>
+            <div class="mb-6">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select your country</label>
                 <select @change="getStates()" v-model="form.country_id" name="country" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option v-for="country in countries" :key="country.id" :value="country.id">{{ country.name }}</option>
@@ -46,7 +50,14 @@
 </template>
 
 <script>
+// import Datepicker from 'vuejs-datepicker';
+import moment from 'moment';
+
 export default {
+
+    // components: {
+    //     Datepicker
+    // },
     data() {
         return {
             cities: [],
@@ -55,6 +66,7 @@ export default {
             form: {
                 first_name: '',
                 last_name: '',
+                date_hired: null,
                 address: '',
                 country_id: '',
                 state_id: '',
@@ -71,6 +83,7 @@ export default {
             axios.post("/api/employee/store", {
                 'first_name': this.form.first_name,
                 'last_name': this.form.last_name,
+                'date_hired': this.format_date(this.form.date_hired),
                 'address': this.form.address,
                 'country_id': this.form.country_id,
                 'state_id': this.form.state_id,
@@ -106,6 +119,12 @@ export default {
                     console.log(console.error);
                 });
         },
+        format_date(value)
+        {
+            if (value) {
+                return moment(String(value)).format('YYYYMMDD')
+            }
+        }
     }
 }
 </script>
