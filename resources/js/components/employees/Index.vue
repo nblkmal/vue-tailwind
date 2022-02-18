@@ -16,22 +16,13 @@
                                         No.
                                     </th>
                                     <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                        First Name
-                                    </th>
-                                    <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                        Last Name
+                                        Name
                                     </th>
                                     <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
                                         Address
                                     </th>
                                     <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
                                         Country
-                                    </th>
-                                    <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
-                                        State
-                                    </th>
-                                    <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
-                                        City
                                     </th>
                                     <th scope="col" class="relative py-3 px-6">
                                         <span class="sr-only">Edit</span>
@@ -45,20 +36,18 @@
                                         {{ key+1 }}.
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ employee.first_name }}
-                                    </td>
-                                    <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        {{ employee.last_name }}
+                                        {{ employee.full_name }}
                                     </td>
                                     <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        {{ employee.address }}
+                                        {{ employee.full_address }}
                                     </td>
                                     <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        <div v-if="employee.country">
+                                        <div v-if="employee.country" class="inline">
+                                            <img :src="'https://flagcdn.com/16x12/'+ employee.country.country_code +'.png'" alt="" srcset="" style="display: inline !important; vertical-align: none !important;">
                                             {{ employee.country.name }}
                                         </div>
                                     </td>
-                                    <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    <!-- <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         <div v-if="employee.state">
                                             {{ employee.state.name }}
                                         </div>
@@ -67,7 +56,7 @@
                                         <div v-if="employee.city">
                                             {{ employee.city.name }}
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                         <router-link :to="{
                                             name: 'EmployeeEdit',
@@ -75,7 +64,7 @@
                                             }" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             Edit
                                         </router-link>
-                                        
+                                        <button class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" v-on:click="deleteEmployee(employee.id)">Delete</button>
                                     </td>
                                 </tr>
                                 
@@ -104,7 +93,19 @@ export default {
             axios.get("/api/employee/index")
             .then(res => {
                 this.employees = res.data.data;
-                console.log(res.data.data[0]);
+                console.log(res.data.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        deleteEmployee(employee) {
+            let isExecuted = confirm("Are you sure to execute this action?");
+
+            axios.post("/api/employee/delete/"+employee)
+            .then(res => {
+                console.log(isExecuted);
+                this.getEmployees();
             })
             .catch(error => {
                 console.log(error);
