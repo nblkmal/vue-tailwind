@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/employee/index', [EmployeeController::class, 'index']);
 Route::post('/employee/store', [EmployeeController::class, 'store']);
 Route::post('/employee/update/{employee}', [EmployeeController::class, 'update']);
+Route::post('/employee/upload-image/{employee}', [EmployeeController::class, 'uploadImage']);
 Route::get('/employee/show/{employee}', [EmployeeController::class, 'show']);
 Route::post('/employee/delete/{employee}', [EmployeeController::class, 'delete']);
 
