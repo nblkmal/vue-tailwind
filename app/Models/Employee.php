@@ -18,7 +18,10 @@ class Employee extends Model
         'full_address'
     ];
 
+    // TODO: cast date using carbon
+    
     protected $fillable = [
+        'profile_picture',
         'first_name',
         'last_name',
         'address',
