@@ -2,6 +2,7 @@
     <div class="text-2xl text-gray-700">
         Employee Create
         <form @submit.prevent="storeEmployee">
+            
             <div class="mb-6">
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">First Name</label>
                 <input v-model="form.first_name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Thomas" required>
@@ -14,9 +15,13 @@
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Address</label>
                 <input v-model="form.address" type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Small Heath, Birmingham" required>
             </div>
-            <div class="mb-6">
+            <!-- <div class="mb-6">
                 <label for="dateHired" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date Hired</label>
                 <input v-model="form.date_hired" id="dateHired" datepicker datepicker-buttons datepicker-format="Y-m-d" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+            </div> -->
+            <div class="mb-6">
+                <label for="dateHired" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date Hired</label>
+                <datepicker :format="format_date" v-model="form.date_hired"></datepicker>
             </div>
             <div class="mb-6">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select your country</label>
@@ -50,14 +55,14 @@
 </template>
 
 <script>
-// import Datepicker from 'vuejs-datepicker';
+import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 
 export default {
 
-    // components: {
-    //     Datepicker
-    // },
+    components: {
+        Datepicker
+    },
     data() {
         return {
             cities: [],
@@ -71,7 +76,7 @@ export default {
                 country_id: '',
                 state_id: '',
                 city_id: '',
-            }
+            },
         };
     },
     // untuk get data terus macam dropdown data
@@ -79,7 +84,9 @@ export default {
         this.getCountries();
     },
     methods: {
+        
         storeEmployee() {
+
             axios.post("/api/employee/store", {
                 'first_name': this.form.first_name,
                 'last_name': this.form.last_name,
@@ -122,7 +129,7 @@ export default {
         format_date(value)
         {
             if (value) {
-                return moment(String(value)).format('YYYYMMDD')
+                return moment(String(value)).format('DD-MM-YYYY')
             }
         }
     }
