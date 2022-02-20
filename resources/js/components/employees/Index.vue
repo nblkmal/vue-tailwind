@@ -36,6 +36,7 @@
                                         {{ key+1 }}.
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <img class="mb-3 w-12 h-12 rounded-full shadow-lg" :src="'../storage/employee/'+ employee.profile_picture" alt="Bonnie image"/>
                                         {{ employee.full_name }}
                                     </td>
                                     <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
