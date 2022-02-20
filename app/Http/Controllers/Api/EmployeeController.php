@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -35,6 +37,27 @@ class EmployeeController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Successfully store employee',
+            'data' => $employee,
+        ]);
+    }
+
+    public function uploadImage(Request $request, Employee $employee)
+    {
+        $request->validate([
+            'profile_picture' => 'mimes:doc,pdf,docx,zip,jpeg,png,jpg,gif,svg',
+        ]);
+
+        if($request->hasFile('profile_picture')){
+            $filename = $request->profile_picture->getClientOriginalName();
+
+            Storage::disk('public')->put('employee/'.$filename, File::get($request->profile_picture));
+
+            $employee->update(['profile_picture'=>$filename]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully upload employee image',
             'data' => $employee,
         ]);
     }
