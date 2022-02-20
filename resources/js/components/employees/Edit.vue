@@ -1,6 +1,17 @@
 <template>
     <div class="text-2xl text-gray-700">
         Employee Edit 
+        <form @submit.prevent="uploadImageEmployee">
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Upload file</label>
+                <input @change="handleImage" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file">
+                <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm your are logged into your account</div>
+
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update employee</button>
+
+            </div>
+        </form>
+
         <form @submit.prevent="editEmployee">
             <div class="mb-6">
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">First Name</label>
@@ -14,9 +25,13 @@
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Address</label>
                 <input v-model="form.address" type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Small Heath, Birmingham" required>
             </div>
-            <div class="mb-6">
+            <!-- <div class="mb-6">
                 <label for="dateHired" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date Hired</label>
                 <input v-model="form.date_hired" id="dateHired" datepicker datepicker-buttons datepicker-format="Y-m-d" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+            </div> -->
+            <div class="mb-6">
+                <label for="dateHired" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date Hired</label>
+                <datepicker :format="format_date" v-model="form.date_hired"></datepicker>
             </div>
             <div class="mb-6">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select country</label>
@@ -44,7 +59,13 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker';
+import moment from 'moment';
+
 export default {
+    components: {
+        Datepicker
+    },
     data() {
         return {
             cities: [],
@@ -58,7 +79,8 @@ export default {
                 country_id: '',
                 state_id: '',
                 city_id: '',
-            }
+            },
+            profile_picture: ''
         };
     },
     // untuk get data terus macam dropdown data
@@ -67,6 +89,17 @@ export default {
         this.getCountries();
     },
     methods: {
+        handleImage(file) {
+            this.profile_picture = file.target.files[0];
+        },
+        uploadImageEmployee() {
+            const formData = new FormData
+            formData.set('profile_picture', this.profile_picture);
+            axios.post("/api/employee/upload-image/"+ this.$route.params.id, formData)
+            .then(res => {
+                this.$router.push({name: 'EmployeeIndex'});
+            });
+        },
         getEmployee() {
             axios.get("/api/employee/show/"+ this.$route.params.id)
             .then(res => {
