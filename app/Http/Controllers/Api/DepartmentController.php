@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DepartmentController extends Controller
 {
@@ -19,10 +21,11 @@ class DepartmentController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $department = Department::create([
-            'name',
+            'name' => $request->name,
+            'description' => $request->description,
         ]);
 
         return response()->json([
@@ -39,6 +42,26 @@ class DepartmentController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Successfully delete department',
+        ]);
+    }
+
+    public function uploadImage(Request $request, Department $department)
+    {
+        $request->validate([
+            'image' => 'mimes:doc,pdf,docx,zip,jpeg,png,jpg,gif,svg',
+        ]);
+
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+
+            Storage::disk('public')->put('department/'.$filename, File::get($request->image));
+
+            $department->update(['image'=>$filename]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully upload '.$department.' image',
         ]);
     }
     
