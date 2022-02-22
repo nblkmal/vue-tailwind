@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        TanDD\LaravelRouteToVueJS\VueJSRouteGeneratorProvider::class,
 
         /*
          * Application Service Providers...
