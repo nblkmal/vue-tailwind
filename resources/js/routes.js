@@ -1,6 +1,7 @@
 import Home from './components/Home';
 import About from './components/About';
 import NotFound from './components/NotFound';
+import DepartmentIndex from './components/departments/Index';
 import EmployeesIndex from './components/employees/Index';
 import EmployeesCreate from './components/employees/Create';
 import EmployeesEdit from './components/employees/Edit';
@@ -20,6 +21,11 @@ export default {
         {
             path: '/about',
             component: About
+        },
+        {
+            name: 'DepartmentIndex',
+            path: '/department-index',
+            component: DepartmentIndex
         },
         {
             name: 'EmployeeIndex',
