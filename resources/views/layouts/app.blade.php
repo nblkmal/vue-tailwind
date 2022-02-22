@@ -22,6 +22,8 @@
     <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
     <script src="https://unpkg.com/flowbite@1.3.4/dist/datepicker.js"></script>
     {{-- <script src="../path/to/flowbite/dist/flowbite.js"></script> --}}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body class="font-Poppins">
     <div id="app">
@@ -48,6 +50,9 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+                    <li class="cursor-pointer">
+                        <router-link class="text-black bg-gray-200 py-2 px-4 rounded-md text-center inline-flex items-center" to="/department-index">Department</router-link>
                     </li>
 
                     @guest
