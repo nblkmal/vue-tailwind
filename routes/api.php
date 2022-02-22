@@ -23,14 +23,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/employee/index', [EmployeeController::class, 'index']);
-Route::post('/employee/store', [EmployeeController::class, 'store']);
-Route::post('/employee/update/{employee}', [EmployeeController::class, 'update']);
-Route::post('/employee/upload-image/{employee}', [EmployeeController::class, 'uploadImage']);
-Route::get('/employee/show/{employee}', [EmployeeController::class, 'show']);
-Route::post('/employee/delete/{employee}', [EmployeeController::class, 'delete']);
+Route::get('/employee/index', [EmployeeController::class, 'index'])->name('employees:index');
+Route::post('/employee/store', [EmployeeController::class, 'store'])->name('employee:store');
+Route::post('/employee/update/{employee}', [EmployeeController::class, 'update'])->name('employee:update');
+Route::post('/employee/upload-image/{employee}', [EmployeeController::class, 'uploadImage'])->name('employee:upload_image');
+Route::get('/employee/show/{employee}', [EmployeeController::class, 'show'])->name('employee:show');
+Route::post('/employee/delete/{employee}', [EmployeeController::class, 'delete'])->name('employee:delete');
 
-Route::get('/countries/index', [CountryController::class, 'index']);
-Route::get('/states/index/{country}', [StateController::class, 'index']);
-Route::get('/cities/index/{state}', [CityController::class, 'index']);
-Route::get('/departments/index', [DepartmentController::class, 'index']);
+Route::get('/department/index', [DepartmentController::class, 'index'])->name('department:index');
+Route::post('/department/store', [DepartmentController::class, 'store'])->name('department:store');
+Route::post('/department/delete/{department}', [DepartmentController::class, 'delete'])->name('department:delete');
+
+Route::get('/countries/index', [CountryController::class, 'index'])->name('countries:index');
+Route::get('/states/index/{country}', [StateController::class, 'index'])->name('states:index');
+Route::get('/cities/index/{state}', [CityController::class, 'index'])->name('cities:index');
+
+// run php artisan laravel-route-to-vue:generate to generate route for vue
