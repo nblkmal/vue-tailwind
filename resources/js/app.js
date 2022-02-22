@@ -10,9 +10,11 @@ window.Vue = require('vue').default;
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import LaravelRoutes from './laravel-route-to-vue.generated';
 import routes from './routes';
 
 Vue.use(VueRouter);
+Vue.use(LaravelRoutes);
 
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -25,5 +27,5 @@ Vue.use(VueRouter);
 
 const app = new Vue({
     el: '#app',
-    router: new VueRouter(routes)
+    router: new VueRouter(routes),
 });
