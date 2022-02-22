@@ -36,7 +36,8 @@
                                         {{ key+1 }}.
                                     </td>
                                     <td class="flex items-center justify-between py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <img class="mr-2 w-12 h-12 rounded-full shadow-lg" :src="'../storage/employee/'+ employee.profile_picture" alt="Bonnie image"/>
+                                        <img v-if="employee.profile_picture" class="mr-2 w-12 h-12 rounded-full shadow-lg" :src="'../storage/employee/'+ employee.profile_picture" alt="Bonnie image"/>
+                                        <img v-else class="mr-2 w-12 h-12 rounded-full shadow-lg" src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Bonnie image"/>
                                         {{ employee.full_name }}
                                     </td>
                                     <td class="text-center py-4 px-6 text-sm text-gray-500 dark:text-gray-400">
@@ -58,14 +59,14 @@
                                             {{ employee.city.name }}
                                         </div>
                                     </td> -->
-                                    <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                    <td class="text-xs py-1.5 mx-5 font-medium text-right whitespace-nowrap">
                                         <router-link :to="{
                                             name: 'EmployeeEdit',
                                             params: { id: employee.id }
                                             }" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             Edit
                                         </router-link>
-                                        <button class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" v-on:click="deleteEmployee(employee.id)">Delete</button>
+                                        <button class="mx-2 text-xs text-red-700 border border-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" v-on:click="deleteEmployee(employee.id)">Delete</button>
                                     </td>
                                 </tr>
                                 
