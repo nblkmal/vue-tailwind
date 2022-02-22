@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Main modal -->
-        <div id="authentication-modal" aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
+        <div id="authentication-modal" aria-hidden="true" class="flex h-screen bg-gray-200/50 overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center md:h-full md:inset-0">
             <div class="relative px-4 w-full max-w-md h-full md:h-auto">
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
