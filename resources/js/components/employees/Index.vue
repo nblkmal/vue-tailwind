@@ -15,7 +15,7 @@
                                     <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                         No.
                                     </th>
-                                    <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                    <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-center text-gray-700 uppercase dark:text-gray-400">
                                         Name
                                     </th>
                                     <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
@@ -35,11 +35,11 @@
                                     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ key+1 }}.
                                     </td>
-                                    <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <img class="mb-3 w-12 h-12 rounded-full shadow-lg" :src="'../storage/employee/'+ employee.profile_picture" alt="Bonnie image"/>
+                                    <td class="flex items-center justify-between py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <img class="mr-2 w-12 h-12 rounded-full shadow-lg" :src="'../storage/employee/'+ employee.profile_picture" alt="Bonnie image"/>
                                         {{ employee.full_name }}
                                     </td>
-                                    <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    <td class="text-center py-4 px-6 text-sm text-gray-500 dark:text-gray-400">
                                         {{ employee.full_address }}
                                     </td>
                                     <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
