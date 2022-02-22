@@ -20,13 +20,13 @@
                         Edit<i class="ml-2 fas fa-pen"></i>
                     </button>
 
-                    <button @click.prevent="toggleDeleteModal(department)" class="bg-red-700 text-white p-2 rounded text-sm">Delete</button>
+                    <button @click.prevent="toggleDeleteModal(department)" class="bg-red-700 text-white p-2 rounded-lg text-sm">Delete</button>
 
                 </div>
             </div>
             <div class="flex items-center bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <div class="py-5 m-auto text-center" type="button" @click.prevent="toggleAddModal()">
-                    <i class="fas fa-plus hover:bg-gray-200 hover:rounded-full"></i>
+                    <i class="fas fa-plus hover:bg-gray-200 hover:text-gray-900 rounded-lg p-1.5"></i>
                     <div class="text-xs">Add new department</div>
                 </div>
             </div>
