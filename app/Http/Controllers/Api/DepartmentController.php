@@ -23,6 +23,7 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
+        // TODO : add custom validation
         $department = Department::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -42,6 +43,19 @@ class DepartmentController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Successfully delete department',
+        ]);
+    }
+
+    public function update(Department $department, Request $request)
+    {
+        $department->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully update department '.$department,
         ]);
     }
 

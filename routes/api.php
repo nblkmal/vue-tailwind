@@ -32,6 +32,7 @@ Route::post('/employee/delete/{employee}', [EmployeeController::class, 'delete']
 
 Route::get('/department/index', [DepartmentController::class, 'index'])->name('department:index');
 Route::post('/department/store', [DepartmentController::class, 'store'])->name('department:store');
+Route::post('/department/update/{department}', [DepartmentController::class, 'update'])->name('department:update');
 Route::post('/department/upload-image/{department}', [DepartmentController::class, 'uploadImage'])->name('department:upload_image');
 Route::post('/department/delete/{department}', [DepartmentController::class, 'delete'])->name('department:delete');
 
