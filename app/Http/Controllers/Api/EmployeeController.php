@@ -86,7 +86,7 @@ class EmployeeController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Successfully fetch data employee '.$employee->first_name,
-            'data' => $employee->with('country')->first(),
+            'data' => $employee->with('country', 'department')->get(),
         ]);
     }
 
