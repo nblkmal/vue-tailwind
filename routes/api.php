@@ -3,10 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\DepartmentController;
+use App\Http\Controllers\Api\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +39,15 @@ Route::post('/department/upload-image/{department}', [DepartmentController::clas
 Route::post('/department/delete/{department}', [DepartmentController::class, 'delete'])->name('department:delete');
 
 Route::get('/countries/index', [CountryController::class, 'index'])->name('countries:index');
+
 Route::get('/states/index/{country}', [StateController::class, 'index'])->name('states:index');
+
 Route::get('/cities/index/{state}', [CityController::class, 'index'])->name('cities:index');
+
+Route::get('/permissions/index', [PermissionController::class, 'index'])->name('permissions:index');
+
+Route::get('/roles/index', [RoleController::class, 'index'])->name('roles:index');
+Route::post('/role/create', [RoleController::class, 'create'])->name('role:create');
+Route::post('/role/delete/{role}', [RoleController::class, 'delete'])->name('role:delete');
 
 // run php artisan laravel-route-to-vue:generate to generate route for vue
