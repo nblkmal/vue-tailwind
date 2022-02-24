@@ -34,9 +34,9 @@
                     <li class="cursor-pointer">
                         <router-link class="text-black bg-gray-200 py-2 px-4 rounded-md text-center inline-flex items-center" to="/home">Home</router-link>
                     </li>
-                    <li class="cursor-pointer">
+                    {{-- <li class="cursor-pointer">
                         <router-link class="text-black bg-gray-200 py-2 px-4 rounded-md text-center inline-flex items-center" to="/about">About</router-link>
-                    </li>
+                    </li> --}}
                     <li class="cursor-pointer ">
                         <button id="dropdown-employee-button" data-dropdown-toggle="dropdown-employee" class="text-black bg-gray-200 py-2 px-4 rounded-md text-center inline-flex items-center" type="button">Employee <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
                         <!-- Dropdown menu -->
@@ -53,6 +53,9 @@
                     </li>
                     <li class="cursor-pointer">
                         <router-link class="text-black bg-gray-200 py-2 px-4 rounded-md text-center inline-flex items-center" to="/department-index">Department</router-link>
+                    </li>
+                    <li class="cursor-pointer">
+                        <router-link class="text-black bg-gray-200 py-2 px-4 rounded-md text-center inline-flex items-center" :to="{ name: 'RoleIndex'}">Roles</router-link>
                     </li>
 
                     @guest
