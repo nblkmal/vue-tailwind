@@ -103,8 +103,7 @@ export default {
         getEmployee() {
             axios.get("/api/employee/show/"+ this.$route.params.id)
             .then(res => {
-                console.log(res.data.data)
-                this.form = res.data.data;
+                this.form = res.data.data[0];
             })
             .catch(error => {
                     console.log(console.error);

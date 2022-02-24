@@ -24,11 +24,15 @@
                 <datepicker :format="format_date" v-model="form.date_hired"></datepicker>
             </div>
             <div class="mb-6">
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select your country</label>
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select country <small>*please type the country name</small></label>
                 <select @change="getStates()" v-model="form.country_id" name="country" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option v-for="country in countries" :key="country.id" :value="country.id">{{ country.name }}</option>
                 </select>
             </div>
+            <!-- <div class="mb-6">
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select your country</label>
+                <vueSelect @change="getStates()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  :options="countries" label="name" :reduce="countries => countries.id" v-model="form.country_id"/>
+            </div> -->
             <div class="mb-6">
                 <label for="cities" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select state</label>
                 <select @change="getCities()" v-model="form.state_id" name="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -57,11 +61,13 @@
 <script>
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
+import vueSelect from 'vue-select';
 
 export default {
 
     components: {
-        Datepicker
+        Datepicker,
+        vueSelect
     },
     data() {
         return {
@@ -77,6 +83,9 @@ export default {
                 state_id: '',
                 city_id: '',
             },
+            computed: {
+                options: () => countries,
+            }
         };
     },
     // untuk get data terus macam dropdown data
@@ -109,13 +118,14 @@ export default {
                 });
         },
         getStates() {
+            console.log('state run')
             axios.get("/api/states/index/" + this.form.country_id)
             .then(res => {
                 this.states = res.data.data;
             })
             .catch(error => {
-                    console.log(console.error);
-                });
+                console.log(console.error);
+            });
         },
         getCities() {
             axios.get("/api/cities/index/" + this.form.state_id)

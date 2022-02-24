@@ -12,7 +12,7 @@
                 <!-- Modal body -->
                 <div class="p-6 pt-0 text-center">
                     <svg class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete {{ department.name }}?</h3>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete {{ role.name }}?</h3>
                     <button @click.prevent="deleteData" data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Yes, I'm sure
                     </button>
@@ -26,22 +26,21 @@
 <script>
 export default {
     props: [
-        'department'
+        'role'
     ],
     created() {
-        console.log('department data')
-        console.log(this.department)
+        console.log('role data')
+        console.log(this.role)
     },
     methods: {
         closeModal() {
             this.$emit('toggle-modal')
         },
         deleteData() {
-            axios.post(this.route('department:delete', {department: this.department.id}))
+            axios.post(this.route('role:delete', {role: this.role.id}))
             .then((res) => {
                 console.log(res)
                 this.closeModal()
-                // this.getDepartments()
             });
         }
     }

@@ -24,6 +24,9 @@
                                     <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
                                         Country
                                     </th>
+                                    <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
+                                        Department
+                                    </th>
                                     <th scope="col" class="relative py-3 px-6">
                                         <span class="sr-only">Edit</span>
                                     </th>
@@ -49,24 +52,26 @@
                                             {{ employee.country.name }}
                                         </div>
                                     </td>
-                                    <!-- <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        <div v-if="employee.state">
-                                            {{ employee.state.name }}
-                                        </div>
+
+                                    <td v-if="employee.department" class="text-center py-4 px-6 text-sm text-gray-500 dark:text-gray-400">
+                                        {{ employee.department }}
                                     </td>
-                                    <td class="text-center py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        <div v-if="employee.city">
-                                            {{ employee.city.name }}
-                                        </div>
-                                    </td> -->
-                                    <td class="text-xs py-1.5 mx-5 font-medium text-right whitespace-nowrap">
+                                    <td v-else class="text-center py-1.5 mx-5 font-medium whitespace-nowrap">
+                                        <button type="button" class="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 font-normal btn-sm rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
+                                            <i class="fas fa-user-tag mr-1"></i>
+                                            Assign
+                                        </button>
+                                    </td>
+
+                                    <td class="text-xs py-1.5 mx-5 font-medium text-center whitespace-nowrap">
                                         <router-link :to="{
                                             name: 'EmployeeEdit',
                                             params: { id: employee.id }
                                             }" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             Edit
                                         </router-link>
-                                        <button class="mx-2 text-xs text-red-700 border border-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" v-on:click="deleteEmployee(employee.id)">Delete</button>
+                                        <button class="mx-1 text-xs text-red-700 border border-red-700 hover:bg-red-800 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" v-on:click="deleteEmployee(employee.id)">Delete</button>
+                                        <button class="mx-1 text-xs text-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Roles</button>
                                     </td>
                                 </tr>
                                 
