@@ -53,11 +53,13 @@
                                         </div>
                                     </td>
 
-                                    <td v-if="employee.department" class="text-center py-4 px-6 text-sm text-gray-500 dark:text-gray-400">
-                                        {{ employee.department }}
+                                    <td v-if="employee.department_id" class="text-center py-4 px-6 text-sm text-gray-500 dark:text-gray-400">
+                                        <button @click.prevent="toggleAssignModal(employee)" type="button" class="bg-green-100 text-green-800 hover:bg-green-100/90 focus:ring-4 focus:ring-green-800 font-normal btn-sm rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
+                                            {{ employee.department.name }}
+                                        </button>
                                     </td>
                                     <td v-else class="text-center py-1.5 mx-5 font-medium whitespace-nowrap">
-                                        <button type="button" class="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 font-normal btn-sm rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
+                                        <button @click.prevent="toggleAssignModal(employee)" type="button" class="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 font-normal btn-sm rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
                                             <i class="fas fa-user-tag mr-1"></i>
                                             Assign
                                         </button>
@@ -81,14 +83,22 @@
                 </div>
             </div>
         </div>
+        <AssignDepartment :employee.sync="toAssign" v-if="isAssignVisibility" @toggle-modal="toggleAssignModal()"/>
         
     </div>
 </template>
 
 <script>
+import AssignDepartment from "../modal/employee/AssignDepartment"
+
 export default {
+    components: {
+        AssignDepartment,
+    },
     data() {
         return {
+            isAssignVisibility: false,
+            toAssign: null,
             employees: [],
         }
     },
@@ -96,6 +106,12 @@ export default {
         this.getEmployees();
     },
     methods: {
+        toggleAssignModal(employee) {
+            console.log(employee)
+            this.toAssign = employee
+            this.isAssignVisibility = !this.isAssignVisibility
+            this.getEmployees();
+        },
         getEmployees() {
             axios.get("/api/employee/index")
             .then(res => {
