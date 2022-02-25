@@ -6,16 +6,20 @@ use App\Models\City;
 use App\Models\State;
 use App\Models\Country;
 use App\Models\Department;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
+    protected $guard_name = 'web';
+    
     protected $appends = [
         'full_name',
-        'full_address'
+        'full_address',
+        'department_name',
     ];
 
     // TODO: cast date using carbon
@@ -47,6 +51,11 @@ class Employee extends Model
     public function getFullAddressAttribute()
     {
         return ucfirst($this->attributes['address']).", ".$this->city->name.", ".$this->state->name;
+    }
+
+    public function getDepartmentNameAttribute()
+    {
+        return $this->department->name ?? '';
     }
 
     public function department()
