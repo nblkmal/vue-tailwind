@@ -12,7 +12,7 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::all();
+        $departments = Department::with('employees')->get();
 
         return response()->json([
             'status' => true,
