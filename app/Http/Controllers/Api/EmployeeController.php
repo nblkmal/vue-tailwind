@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\EmployeeRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,6 +15,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::with('country', 'state', 'city')->get();
+        // $employees = Employee::all();
         
         return response()->json([
             'status' => true,
@@ -86,7 +88,8 @@ class EmployeeController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Successfully fetch data employee '.$employee->first_name,
-            'data' => $employee->with('country', 'department')->get(),
+            // 'data' => $employee->with('country', 'department')->get(),
+            'data' => $employee,
         ]);
     }
 
@@ -97,7 +100,31 @@ class EmployeeController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Successfully delete data employee ',
-            // 'data' => $employee,
+        ]);
+    }
+
+    public function assignDepartment(Employee $employee, Request $request)
+    {
+        $employee->update([
+            'department_id' => $request->department_id,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully assign employee to '.$employee->department->name,
+            'data' => $employee
+        ]);
+    }
+
+    public function assignRole(Employee $employee, Request $request)
+    {
+        $role = Role::where('name', $request->role)->first();
+        $employee->assignRole($role);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully assign employee to role'.$role,
+            'data' => $employee
         ]);
     }
 }
