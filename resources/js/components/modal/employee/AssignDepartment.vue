@@ -22,11 +22,15 @@
                     </form>
                     <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" @submit.prevent="assignRole">
                         <h3 class="text-xl font-medium text-gray-900 dark:text-white">Choose roles</h3>
-                        <div>
+                        <!-- <div>
                             <label for="departments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select role</label>
                             <select v-model="form.role" id="departments" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option v-for="role in roles" :key="role.id" :value="role.name">{{ role.name }}</option>
                             </select>
+                        </div> -->
+                        <div>
+                            <label for="departments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select role</label>
+                            <vueSelect multiple v-model="form.role" :value="form.role" :options="roles" :reduce="roles => roles.name" label="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></vueSelect>
                         </div>
                         <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Assign</button>
                     </form>
@@ -37,14 +41,22 @@
 </template>
 
 <script>
+import vueSelect from 'vue-select';
+
 export default {
+    components: {
+        vueSelect,
+    },
     data() {
         return {
             departments: [],
             roles: [],
             form: {
-                department_id: '',
-                role: '',
+                department_id: this.employee.department_id,
+                role: this.employee.roles,
+            },
+            computed: {
+                options:() => roles,
             }
         };
     },
@@ -54,7 +66,7 @@ export default {
     created() {
         this.getDepartments();
         this.getRoles();
-        console.log(this.employee)
+        console.log(this.employee.department_id)
     },
     methods: {
         closeModal() {
@@ -63,7 +75,6 @@ export default {
         getRoles() {
             axios.get(this.route('roles:index'))
             .then(res => {
-                console.log(res.data.data)
                 this.roles = res.data.data
             })
             .catch(error => {
@@ -73,7 +84,6 @@ export default {
         getDepartments() {
             axios.get(this.route('department:index'))
             .then(res => {
-                console.log(res.data.data)
                 this.departments = res.data.data
             })
             .catch(error => {
@@ -81,7 +91,6 @@ export default {
             })
         },
         assignDepartment() {
-            console.log(this.form.department_id)
             axios.post(this.route('employee:assignDepartment', {employee: this.employee.id}),
             {
                 'department_id': this.form.department_id,

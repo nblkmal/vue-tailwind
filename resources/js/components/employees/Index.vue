@@ -54,9 +54,18 @@
                                     </td>
 
                                     <td v-if="employee.department_id" class="text-center py-4 px-6 text-sm text-gray-500 dark:text-gray-400">
-                                        <button @click.prevent="toggleAssignModal(employee)" type="button" class="bg-green-100 text-green-800 hover:bg-green-100/90 focus:ring-4 focus:ring-green-800 font-normal btn-sm rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
+                                        <button @click.prevent="toggleAssignModal(employee)" type="button" class="bg-green-100 text-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:ring-green-800 font-normal btn-sm rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
                                             {{ employee.department.name }}
                                         </button>
+                                        <div v-if="employee.roles.length != 0">
+                                            <span v-for="role in employee.roles" :key="role.id" class="bg-gray-100 text-gray-800 text-xs font-normal px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                                <i @click.prevent="deleteRole(employee.id, role.id)" type="button" class="text-sm fas fa-times mr-1"></i>{{ role.name }}
+                                            </span>
+                                        </div>
+                                        <div v-else class="text-xs font-normal">
+                                            No role
+                                        </div>
+                                        
                                     </td>
                                     <td v-else class="text-center py-1.5 mx-5 font-medium whitespace-nowrap">
                                         <button @click.prevent="toggleAssignModal(employee)" type="button" class="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 font-normal btn-sm rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
@@ -72,7 +81,7 @@
                                             }" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             Edit
                                         </router-link>
-                                        <button class="mx-1 text-xs text-red-700 border border-red-700 hover:bg-red-800 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" v-on:click="deleteEmployee(employee.id)">Delete</button>
+                                        <button class="mx-1 text-xs text-red-700 border border-red-700 hover:bg-red-800 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" @click.prevent="toggleDeleteModal(employee)">Delete</button>
                                         <button class="mx-1 text-xs text-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Roles</button>
                                     </td>
                                 </tr>
@@ -84,21 +93,27 @@
             </div>
         </div>
         <AssignDepartment :employee.sync="toAssign" v-if="isAssignVisibility" @toggle-modal="toggleAssignModal()"/>
+        <DeleteModal :employee.sync="toDelete" v-if="isDeleteVisibility" @toggle-modal="toggleDeleteModal(toDelete)"/>
         
     </div>
 </template>
 
 <script>
 import AssignDepartment from "../modal/employee/AssignDepartment"
+import DeleteModal from "../modal/employee/DeleteModal"
 
 export default {
     components: {
         AssignDepartment,
+        DeleteModal,
     },
     data() {
         return {
+            removeRole: '',
             isAssignVisibility: false,
+            isDeleteVisibility: false,
             toAssign: null,
+            toDelete: null,
             employees: [],
         }
     },
@@ -106,6 +121,11 @@ export default {
         this.getEmployees();
     },
     methods: {
+        toggleDeleteModal(employee) {
+            this.toDelete = employee
+            this.isDeleteVisibility = !this.isDeleteVisibility
+            this.getEmployees();
+        },
         toggleAssignModal(employee) {
             console.log(employee)
             this.toAssign = employee
@@ -122,16 +142,14 @@ export default {
                 console.log(error);
             })
         },
-        deleteEmployee(employee) {
-            let isExecuted = confirm("Are you sure to execute this action?");
-
-            axios.post("/api/employee/delete/"+employee)
+        deleteRole(employee, role) {
+            axios.post(this.route('employee:removeRole', {
+                employee: employee,
+                role: role,
+            }))
             .then(res => {
-                console.log(isExecuted);
+                console.log(res)
                 this.getEmployees();
-            })
-            .catch(error => {
-                console.log(error);
             })
         }
     }
