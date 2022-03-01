@@ -14,8 +14,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::with('country', 'state', 'city')->get();
-        // $employees = Employee::all();
+        $employees = Employee::with('country', 'state', 'city', 'roles')->get();
         
         return response()->json([
             'status' => true,
@@ -118,13 +117,27 @@ class EmployeeController extends Controller
 
     public function assignRole(Employee $employee, Request $request)
     {
-        $role = Role::where('name', $request->role)->first();
-        $employee->assignRole($role);
+        $roles = $request->role;
+
+        foreach($roles as $role) {
+            $role = Role::where('name', $role)->first();
+            $employee->assignRole($role);
+        }
 
         return response()->json([
             'status' => true,
             'message' => 'Successfully assign employee to role'.$role,
             'data' => $employee
+        ]);
+    }
+
+    public function removeRole(Employee $employee, Role $role)
+    {
+        $employee->removeRole($role);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully remove employee from role '.$role->name,
         ]);
     }
 }
